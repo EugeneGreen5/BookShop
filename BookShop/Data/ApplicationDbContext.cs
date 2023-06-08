@@ -5,8 +5,9 @@ namespace BookShop.Data;
 
 public class ApplicationDbContext : DbContext
 {
-    public DbSet<UserEntity> Users { get; set; }
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    public DbSet<UserEntity> users { get; set; }
+    public ApplicationDbContext(DbContextOptions options) 
+        : base(options)
     {
         Database.EnsureCreated();
     }

@@ -1,11 +1,12 @@
 ﻿using BookShop.Data;
+using BookShop.Models.DTO.Users;
 using BookShop.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace BookShop.Repositories;
 
-public class UserRepository : IRepository<UserRepository>
+public class UserRepository : IRepository<UserEntity>
 {
     private readonly ApplicationDbContext _context;
 
@@ -14,18 +15,24 @@ public class UserRepository : IRepository<UserRepository>
         _context = context;
     }
 
-    public Task<bool> AnyAsync(Expression<Func<IEntity, bool>> expression, CancellationToken cancellationToken = default)
+    public async Task<bool> AnyAsync(Expression<Func<UserEntity, bool>> expression, CancellationToken cancellationToken = default)
     {
-       return _context.Set<UserEntity>().AnyAsync(expression, cancellationToken);
+        return await _context.Set<UserEntity>().AnyAsync(expression, cancellationToken);
     }
 
-    public Task<UserRepository> GetAsync(Guid id)
+    public async Task<UserEntity> GetAsync(String email)
+    {
+        return await _context.users.FirstAsync(x => x.Email == email);
+    }
+
+    public Task<UserEntity> GetListAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<UserRepository> GetListAsync()
+    public async Task PostAsync(UserEntity newUser)
     {
-        throw new NotImplementedException();
+        await _context.AddAsync(newUser);
+        await _context.SaveChangesAsync();
     }
 }

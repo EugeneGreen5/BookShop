@@ -5,5 +5,6 @@ namespace BookShop.Services;
 
 public interface IUserService
 {
-    public Task<ResponseDTO> UserRegistrationHandler(UserRequestDTO newUser);
+    public Task<ResponseDTO> UserRegistrationHandlerAsync(UserRequestDTO newUser);
+    public Task<ResponseDTO> UserAuthorizationHandlerAsync(UserRequestDTO user);
 }
