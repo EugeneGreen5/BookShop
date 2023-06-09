@@ -52,7 +52,7 @@ public class UserController
             expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(10)),
             notBefore:DateTime.UtcNow,
             signingCredentials: new SigningCredentials(signineKey,SecurityAlgorithms.HmacSha256)
-            ) ;
+            );
         return new JwtSecurityTokenHandler().WriteToken(jwt);
     }
 }

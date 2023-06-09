@@ -7,8 +7,8 @@ namespace BookShop.Repositories;
 public interface IRepository<T> 
     where T : IEntity
 {
-    Task<T> GetListAsync(); 
-    Task<T> GetAsync(String email);
-    Task PostAsync(T newUser);
+    Task<List<T>> GetListAsync(); 
+    Task<T> GetAsync(String input);
+    Task PostAsync(T input);
     Task<bool> AnyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
 }

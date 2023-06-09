@@ -20,7 +20,8 @@ public static class OptionsJWTToken
             ValidAudience = audience,
             ValidateLifetime = true,
             IssuerSigningKey = signingKey,
-            ValidateIssuerSigningKey = true
+            ValidateIssuerSigningKey = true,
+            ClockSkew = TimeSpan.Zero
         };
     }
 }
