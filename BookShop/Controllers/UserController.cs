@@ -1,7 +1,7 @@
 ﻿using BookShop.Helpers;
 using BookShop.Models.DTO;
 using BookShop.Models.DTO.Users;
-using BookShop.Services;
+using BookShop.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

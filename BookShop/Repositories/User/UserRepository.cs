@@ -4,9 +4,9 @@ using BookShop.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace BookShop.Repositories;
+namespace BookShop.Repositories.User;
 
-public class UserRepository : IRepository<UserEntity>
+public class UserRepository : IUserRepository
 {
     private readonly ApplicationDbContext _context;
 
@@ -20,12 +20,12 @@ public class UserRepository : IRepository<UserEntity>
         return await _context.Set<UserEntity>().AnyAsync(expression, cancellationToken);
     }
 
-    public async Task<UserEntity> GetAsync(String email)
+    public async Task<UserEntity> GetAsync(string email)
     {
         return await _context.users.FirstAsync(x => x.Email == email);
     }
 
-    public Task<UserEntity> GetListAsync()
+    public Task<List<UserEntity>> GetListAsync()
     {
         throw new NotImplementedException();
     }
@@ -34,5 +34,10 @@ public class UserRepository : IRepository<UserEntity>
     {
         await _context.AddAsync(newUser);
         await _context.SaveChangesAsync();
+    }
+
+    public Task UpdateAsync(UserEntity input)
+    {
+        throw new NotImplementedException();
     }
 }

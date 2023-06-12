@@ -1,5 +1,6 @@
-﻿using BookShop.Models.Entities;
-using BookShop.Services;
+﻿using BookShop.Models.DTO;
+using BookShop.Models.Entities;
+using BookShop.Services.Product;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.Controllers;
@@ -19,5 +20,6 @@ public class ProductController
         => await _service.GetListAllProducts();
 
     [HttpPost]
-    public async Task<>
+    public async Task<ResponseDTO> CreateProduct(ProductEntity product)
+        => await _service.ProductHandlerAsync(product);
 }

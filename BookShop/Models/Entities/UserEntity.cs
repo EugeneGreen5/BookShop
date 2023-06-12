@@ -10,4 +10,5 @@ public class UserEntity : IEntity
     { 
         Id = Guid.NewGuid();
     }
+
 }
