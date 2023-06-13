@@ -13,6 +13,7 @@ public class OrdersEntityConfiguration : BaseEntityConfiguration<OrdersEntity>
 
         builder.HasMany(c => c.OrderProducts)
             .WithOne()
-            .HasForeignKey(c => c.OrderId);
+            .HasForeignKey(c => c.OrderId)
+            .OnDelete(DeleteBehavior.Cascade); ;
     }
 }

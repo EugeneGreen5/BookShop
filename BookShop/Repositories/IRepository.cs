@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 namespace BookShop.Repositories;
 
 public interface IRepository<T> 
-    where T : IEntity
+    where T : BaseEntity
 {
     Task<List<T>> GetListAsync(); 
     Task<T> GetAsync(object? input);

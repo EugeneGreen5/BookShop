@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230611163224_init")]
+    [Migration("20230613193956_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -42,7 +42,11 @@ namespace BookShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orderProducts");
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("order_product", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Models.Entities.OrdersEntity", b =>
@@ -55,17 +59,14 @@ namespace BookShop.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UserEntityId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEntityId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Models.Entities.ProductEntity", b =>
@@ -91,7 +92,7 @@ namespace BookShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Models.Entities.UserEntity", b =>
@@ -110,14 +111,38 @@ namespace BookShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("BookShop.Models.Entities.OrderProductEntity", b =>
+                {
+                    b.HasOne("BookShop.Models.Entities.OrdersEntity", null)
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookShop.Models.Entities.ProductEntity", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BookShop.Models.Entities.OrdersEntity", b =>
                 {
                     b.HasOne("BookShop.Models.Entities.UserEntity", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserEntityId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookShop.Models.Entities.OrdersEntity", b =>
+                {
+                    b.Navigation("OrderProducts");
                 });
 
             modelBuilder.Entity("BookShop.Models.Entities.UserEntity", b =>

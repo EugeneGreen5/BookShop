@@ -12,6 +12,7 @@ public class UsersEntityConfiguration : BaseEntityConfiguration<UserEntity>
         builder.ToTable("users");
         builder.HasMany(c => c.Orders)
             .WithOne()
-            .HasForeignKey(c => c.UserId);
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
