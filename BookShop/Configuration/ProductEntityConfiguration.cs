@@ -1,5 +1,14 @@
-﻿namespace BookShop.Configuration;
+﻿using BookShop.Config;
+using BookShop.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class ProductEntityConfiguration
+namespace BookShop.Configuration;
+
+public class ProductEntityConfiguration : BaseEntityConfiguration<ProductEntity>
 {
+    public override void ConfigEntity(EntityTypeBuilder<ProductEntity> builder)
+    {
+        builder.ToTable("products");
+    }
 }
