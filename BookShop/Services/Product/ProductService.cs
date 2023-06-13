@@ -1,13 +1,15 @@
 ﻿using BookShop.Models.DTO;
 using BookShop.Models.Entities;
 using BookShop.Repositories;
+using BookShop.Repositories.Product;
+using BookShop.Repositories.User;
 
 namespace BookShop.Services.Product;
 
 public class ProductService : IProductService
 {
-    private readonly IRepository<ProductEntity> _dbProduct;
-    public ProductService(IRepository<ProductEntity> dbProduct)
+    private readonly IProductRepository _dbProduct;
+    public ProductService(IProductRepository dbProduct)
     {
         _dbProduct = dbProduct;
     }

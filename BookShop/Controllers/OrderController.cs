@@ -1,4 +1,6 @@
-﻿using BookShop.Services.Order;
+﻿using BookShop.Models.DTO;
+using BookShop.Models.Entities;
+using BookShop.Services.Order;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.Controllers;
@@ -13,5 +15,7 @@ public class OrderController
         _service = service;
     }
 
-
+    [HttpPost]
+    public async Task<ResponseDTO> CreateOrder(OrdersEntity newOrder)
+        => await _service.CreateOrder(newOrder);
 }

@@ -1,13 +1,12 @@
 ﻿using BookShop.Helpers;
 using BookShop.Models.DTO;
 using BookShop.Models.DTO.Users;
-using BookShop.Services.User;
+using BookShop.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace BookShop.Controllers;
@@ -25,9 +24,6 @@ public class UserController
         _service = service;
         _options = optAccess.Value;
     }
-    [HttpGet("get")]
-    public string Get() => "get";
-
 
     [HttpPost("registration")]
     public async Task<ActionResult<ResponseDTO>> RegistrationAsync(UserRequestDTO newUser) =>
@@ -41,6 +37,7 @@ public class UserController
     public string GetToken(UserRequestDTO user)
     {
         List<Claim> claims = new List<Claim>();
+        claims.Add(new Claim("Id", user.Id.ToString()));
         claims.Add(new Claim("Email", user.Email));
         claims.Add(new Claim("Role","user"));
         var signineKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey));

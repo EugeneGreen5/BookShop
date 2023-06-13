@@ -1,13 +1,14 @@
 ﻿using BookShop.Models.DTO;
 using BookShop.Models.Entities;
 using BookShop.Repositories;
+using BookShop.Repositories.Order;
 
 namespace BookShop.Services.Order;
 
 public class OrderService : IOrderService
 {
-    private readonly IRepository<OrdersEntity> _dbOrder;
-    public OrderService(IRepository<OrdersEntity> dbOrder)
+    private readonly IOrderRepository _dbOrder;
+    public OrderService(IOrderRepository dbOrder)
     {
         _dbOrder = dbOrder;
     }

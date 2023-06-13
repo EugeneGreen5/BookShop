@@ -2,13 +2,14 @@
 using BookShop.Models.DTO.Users;
 using BookShop.Models.Entities;
 using BookShop.Repositories;
+using BookShop.Repositories.User;
 
 namespace BookShop.Services;
 
 public class UserService : IUserService
 {
-    private readonly IRepository<UserEntity> _dbUser;
-    public UserService(IRepository<UserEntity> dbUser)
+    private readonly IUserRepository _dbUser;
+    public UserService(IUserRepository dbUser)
     {
         _dbUser = dbUser;
     }
