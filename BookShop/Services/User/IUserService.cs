@@ -7,4 +7,5 @@ public interface IUserService
 {
     public Task<ResponseDTO> UserRegistrationHandlerAsync(UserRequestDTO newUser);
     public Task<ResponseDTO> UserAuthorizationHandlerAsync(UserRequestDTO user);
+
 }

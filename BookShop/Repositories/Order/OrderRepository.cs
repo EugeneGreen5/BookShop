@@ -16,10 +16,8 @@ public class OrderRepository : IOrderRepository
     public async Task<bool> AnyAsync(Expression<Func<OrdersEntity, bool>> expression, CancellationToken cancellationToken = default) =>
         await _context.Set<OrdersEntity>().AnyAsync(expression, cancellationToken);
 
-    public Task<OrdersEntity> GetAsync(Guid input)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<OrdersEntity> GetAsync(Guid input)
+        => await _context.orders.FirstOrDefaultAsync(c => c.Id.Equals(input));
 
     public Task<List<OrdersEntity>> GetListAsync()
     {
@@ -34,6 +32,8 @@ public class OrderRepository : IOrderRepository
 
     public async Task UpdateAsync(OrdersEntity input)
     {
-
+        var order = await GetAsync(input.Id);
+        order.State = input.State;
+        await _context.SaveChangesAsync();
     }
 }

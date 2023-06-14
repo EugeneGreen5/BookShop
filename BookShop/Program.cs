@@ -3,6 +3,7 @@ using BookShop.Helpers;
 using BookShop.Models.Entities;
 using BookShop.Repositories;
 using BookShop.Repositories.Order;
+using BookShop.Repositories.OrderProduct;
 using BookShop.Repositories.Product;
 using BookShop.Repositories.User;
 using BookShop.Services;
@@ -40,6 +41,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderProductRepository, OrderProductRepository>();
 
 var app = builder.Build();
 
