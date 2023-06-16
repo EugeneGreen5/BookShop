@@ -17,7 +17,7 @@ public class OrderRepository : IOrderRepository
         await _context.Set<OrdersEntity>().AnyAsync(expression, cancellationToken);
 
     public async Task<OrdersEntity> GetAsync(Guid input)
-        => await _context.orders.FirstOrDefaultAsync(c => c.Id.Equals(input));
+        => await _context.Orders.FirstOrDefaultAsync(c => c.Id.Equals(input));
 
     public Task<List<OrdersEntity>> GetListAsync()
     {

@@ -13,6 +13,7 @@ public class OrderProductEntityConfiguration : BaseEntityConfiguration<OrderProd
 
         builder.HasOne(c => c.Product)
             .WithMany()
+            //.HasPrincipalKey(c => c.Id)
             .HasForeignKey(c => c.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
     }

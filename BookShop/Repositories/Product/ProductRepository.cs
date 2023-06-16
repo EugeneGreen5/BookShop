@@ -22,7 +22,7 @@ public class ProductRepository : IProductRepository
     }
 
     public async Task<List<ProductEntity>> GetListAsync() =>
-        await _context.products.ToListAsync();
+        await _context.Products.ToListAsync();
 
     public async Task PostAsync(ProductEntity input)
     {

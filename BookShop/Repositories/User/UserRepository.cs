@@ -22,7 +22,7 @@ public class UserRepository : IUserRepository
 
     public async Task<UserEntity> GetAsync(string email)
     {
-        return await _context.users.FirstAsync(x => x.Email == email);
+        return await _context.Users.FirstAsync(x => x.Email == email);
     }
 
     public Task<List<UserEntity>> GetListAsync()

@@ -1,4 +1,5 @@
 ﻿using BookShop.Models.DTO;
+using BookShop.Models.DTO.Order;
 using BookShop.Models.Entities;
 using BookShop.Repositories;
 using BookShop.Repositories.Order;
@@ -28,11 +29,11 @@ public class OrderService : IOrderService
         };
     }
 
-    public async Task<ResponseDTO> CreateOrderProduct(OrderProductEntity newOrderProduct)
-    {
-        var isExists = await _dbOrderProduct.AnyAsync(c => c.OrderId.Equals(newOrderProduct.OrderId) 
-                                                        && c.ProductId.Equals(newOrderProduct.ProductId));
-        if (!isExists) 
+    public async Task<ResponseDTO> CreateOrderProduct(OrderProductRequestDto newOrderProduct)
+    {   
+        var isExists = await _dbOrderProduct.AnyAsync(c => c.OrderId.Equals(newOrderProduct.OrderId)
+                                                            && c.ProductId.Equals(newOrderProduct.ProductId));
+        if (isExists) 
         {
             return new ResponseDTO
             {
@@ -41,19 +42,18 @@ public class OrderService : IOrderService
             };
         }
 
-        await _dbOrderProduct.PostAsync(newOrderProduct);
+        var orderProduct = await MapDtoToEntity(newOrderProduct);
+        await _dbOrderProduct.PostAsync(orderProduct);
 
         return new ResponseDTO
         {
             Code = 200,
             Message = "Продукт в заказ успешно добавлен"
         };
-    }
+     }
 
-    public Task<List<OrdersEntity>> GetOrdersList()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<List<OrderProductEntity>> GetOrderProductList() =>
+                await _dbOrderProduct.GetListAsync();
 
     public async Task<ResponseDTO> UpdateOrder(OrdersEntity newOrder)
     {
@@ -74,4 +74,12 @@ public class OrderService : IOrderService
             Message = "Статус заказа успешно изменён"
         };
     }
+
+    private async Task<OrderProductEntity> MapDtoToEntity(OrderProductRequestDto dto) =>
+        new OrderProductEntity
+        {
+            ProductId = dto.ProductId,
+            OrderId = dto.OrderId,
+            Amount = dto.Amount
+        };
 }
