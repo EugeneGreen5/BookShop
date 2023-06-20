@@ -25,6 +25,9 @@ public class UserRepository : IUserRepository
         return await _context.Users.FirstAsync(x => x.Email == email);
     }
 
+    public async Task<UserEntity> GetFullInfoAsync(string email) =>
+        await _context.Users.Include(x => x.Orders).ThenInclude(c => c.OrderProducts).ThenInclude(c => c.Product).FirstOrDefaultAsync(c => c.Email.Equals(email));
+
     public Task<List<UserEntity>> GetListAsync()
     {
         throw new NotImplementedException();

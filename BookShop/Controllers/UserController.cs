@@ -1,7 +1,9 @@
 ﻿using BookShop.Helpers;
 using BookShop.Models.DTO;
 using BookShop.Models.DTO.Users;
+using BookShop.Models.Entities;
 using BookShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -52,4 +54,9 @@ public class UserController
             );
         return new JwtSecurityTokenHandler().WriteToken(jwt);
     }
+
+    [HttpPost("orders")]
+    [Authorize]
+    public async Task<UserEntity> GetFullInfo(UserRequestDTO user) =>
+        await _service.GetFullInfoAsync(user);
 }

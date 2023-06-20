@@ -75,4 +75,6 @@ public class UserService : IUserService
         await _dbUser.PostAsync(userEntity);
     }
 
+    public async Task<UserEntity> GetFullInfoAsync(UserRequestDTO user) =>
+        await _dbUser.GetFullInfoAsync(user.Email);
 }
