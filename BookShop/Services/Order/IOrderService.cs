@@ -10,4 +10,5 @@ public interface IOrderService
     public Task<ResponseDTO> UpdateOrder(OrdersEntity newOrder);
     public Task<List<OrderProductEntity>> GetOrderProductList();
     public Task<ResponseDTO> CreateOrderProduct(OrderProductRequestDto newOrderProduct);
+    public Task<ResponseDTO> UpdateCounterProduct(OrderProductRequestDto newOrderProduct);
 }

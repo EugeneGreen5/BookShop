@@ -29,6 +29,11 @@ public class OrderController
         await _service.CreateOrderProduct(newProduct);
 
     [HttpPut]
-    public async Task<ResponseDTO> UpdateStateOrder(OrdersEntity newOrder)
-        => await _service.UpdateOrder(newOrder);
+    public async Task<ResponseDTO> UpdateStateOrder(OrdersEntity newOrder)=> 
+        await _service.UpdateOrder(newOrder);
+
+    [HttpPut("amount")]
+    public async Task<ResponseDTO> UpdateCounterOrderProduct(OrderProductRequestDto newOrderProduct) =>
+        await _service.UpdateCounterProduct(newOrderProduct);
+
 }

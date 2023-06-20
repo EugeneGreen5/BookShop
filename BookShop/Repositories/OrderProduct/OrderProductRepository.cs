@@ -18,8 +18,10 @@ public class OrderProductRepository : IOrderProductRepository
 
     public async Task<OrderProductEntity> GetByDtoAsync(OrderProductRequestDto input)=>
         await _context.OrderProducts.Include(c => c.Product).FirstOrDefaultAsync(c => c.OrderId.Equals(input.OrderId)
-                                                                                     && c.ProductId.Equals(input.ProductId)); 
-        
+                                                                                     && c.ProductId.Equals(input.ProductId));
+    public async Task<OrderProductEntity> GetFromDb(OrderProductRequestDto input) =>
+        await _context.OrderProducts.Include(c => c.Product).FirstOrDefaultAsync(c => c.OrderId.Equals(input.OrderId)
+                                                                                 && c.ProductId.Equals(input.ProductId));
 
     public async Task PostAsync(OrderProductEntity input)
     {
@@ -27,9 +29,11 @@ public class OrderProductRepository : IOrderProductRepository
         await _context.SaveChangesAsync();
     }
 
-    public Task UpdateAsync(OrderProductEntity input)
+    public async Task UpdateAsync(OrderProductRequestDto input)
     {
-        throw new NotImplementedException();
+        var orderProduct = await GetFromDb(input);
+        orderProduct.Amount = input.Amount;
+        await _context.SaveChangesAsync();
     }
 
     public Task<List<OrderProductEntity>> GetListAsync() =>

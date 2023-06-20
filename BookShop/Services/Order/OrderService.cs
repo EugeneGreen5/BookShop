@@ -1,7 +1,6 @@
 ﻿using BookShop.Models.DTO;
 using BookShop.Models.DTO.Order;
 using BookShop.Models.Entities;
-using BookShop.Repositories;
 using BookShop.Repositories.Order;
 using BookShop.Repositories.OrderProduct;
 
@@ -72,6 +71,27 @@ public class OrderService : IOrderService
         {
             Code = 200,
             Message = "Статус заказа успешно изменён"
+        };
+    }
+
+    public async Task<ResponseDTO> UpdateCounterProduct(OrderProductRequestDto newOrderProduct)
+    {
+        var isExists = await _dbOrderProduct.AnyAsync(c => c.OrderId.Equals(newOrderProduct.OrderId)
+                                                            && c.ProductId.Equals(newOrderProduct.ProductId));
+        if (!isExists) 
+        {
+            return new ResponseDTO
+            {
+                Code = 200,
+                Message = "Данного продукта нет в заказе"
+            };
+        }
+
+        await _dbOrderProduct.UpdateAsync(newOrderProduct);
+        return new ResponseDTO
+        {
+            Code = 200,
+            Message = "Кол-во товара успешно изменено"
         };
     }
 
